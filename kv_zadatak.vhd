@@ -11,25 +11,25 @@ entity ledUpravljac is
 end ledUpravljac;
 
 architecture Behavioral of ledUpravljac is
-    signal pwm_counter : INTEGER range 0 to 15 := 0;
-    signal pwm_out : STD_LOGIC := '0';
+    signal brojac : INTEGER range 0 to 15 := 0;
+    signal izlaz : STD_LOGIC := '0';
 begin
     process(clk)
     begin
         if (clk'event and clk = '1') then
-            if pwm_counter < 16 then
-                pwm_counter <= pwm_counter + 1;
+            if brojac < 16 then
+                brojac <= brojac + 1;
             else
-                pwm_counter <= 0;
+                brojac <= 0;
             end if;
 
-            if pwm_counter < to_integer(unsigned(intenzitet)) then
-                pwm_out <= '1';
+            if brojac < to_integer(unsigned(intenzitet)) then
+                izlaz <= '1';
             else
-                pwm_out <= '0';
+                izlaz <= '0';
             end if;
         end if;
     end process;
     
-    led <= pwm_out;
+    led <= izlaz;
 end Behavioral;
